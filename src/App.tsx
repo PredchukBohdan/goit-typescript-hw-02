@@ -17,16 +17,30 @@ const loaderStyles = {
 };
 Modal.setAppElement("#root");
 
+export interface Image {
+  id: string;
+  alt_description: string;
+  urls: {
+    small: string;
+    regular: string;
+  };
+}
+export interface FetchImagesResponse {
+  results: Image[];
+  total: number;
+  total_pages: number;
+}
+
 function App() {
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [totalPages, setTotalPages] = useState(0);
-  const [noResults, setNoResults] = useState(false);
+  const [images, setImages] = useState<Image[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [noResults, setNoResults] = useState<boolean>(false);
 
   const abortController = new AbortController();
 
@@ -61,12 +75,12 @@ function App() {
     };
   }, [query, page]);
 
-  const handleSearch = (value) => {
+  const handleSearch = (value: string) => {
     setQuery(value);
     setImages([]);
     setPage(1);
   };
-  const openModal = (image) => {
+  const openModal = (image: Image) => {
     setSelectedImage(image);
     setIsModalOpen(true);
   };

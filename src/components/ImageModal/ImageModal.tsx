@@ -1,7 +1,18 @@
+import { Image } from "../../App";
 import s from "./ImageModal.module.css";
 import Modal from "react-modal";
 
-export const ImageModal = ({ isModalOpen, closeModal, selectedImage }) => {
+interface ImageModalProps {
+  isModalOpen: boolean;
+  closeModal: () => void;
+  selectedImage: Image | null;
+}
+
+export const ImageModal = ({
+  isModalOpen,
+  closeModal,
+  selectedImage,
+}: ImageModalProps) => {
   return (
     <Modal
       isOpen={isModalOpen}
